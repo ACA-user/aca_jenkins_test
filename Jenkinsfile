@@ -1,18 +1,11 @@
 node {
-    def app
 
-    stage('Clone repository') {
-        checkout scm
-    }
+    checkout scm
 
-    stage('Build image') {
-        app = docker.build("aca/frog")
-    }
+    docker.withRegistry('https://registry.hub.docker.com', 'dockerHub') {
 
-    stage('Push image') {
-        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-            app.push("${env.BUILD_NUMBER}")
-            app.push("latest")
-        }
+        def customImage = docker.build("aca/frog")
+
+        customImage.push()
     }
 }
