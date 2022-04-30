@@ -1,11 +1,18 @@
 node {
+    def app
 
-    checkout scm
+    stage('Clone repository') {
+        checkout scm
+    }
 
-    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+    stage('Build image') {
+        app = docker.build("jenkinstestt/aca")
+    }
 
-        def customImage = docker.build("jenkinstestt/aca")
-
-        customImage.push()
+    stage('Push image') {
+        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+            app.push("${env.BUILD_NUMBER}")
+            app.push("latest")
+        }
     }
 }
