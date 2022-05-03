@@ -17,7 +17,7 @@ node {
 
     }
     stage('Docker run') {
-        bash '''
+        sh '''
               #!/bin/bash 
               result=`docker ps |grep -w 'jenkinstest'`
               echo ${result}
