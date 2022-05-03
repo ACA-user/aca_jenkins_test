@@ -15,14 +15,8 @@ node {
             app.push("latest")
         }
     }
-
     stage('Docker run') {
-            agent {
-                docker {
-                    image "jenkinstestt/aca:${env.BUILD_NUMBER}"
-                    reuseNode true
-                }
-            }
-        }
+        docker.image("jenkinstestt/aca:${env.BUILD_NUMBER}")
+    }
 
 }
