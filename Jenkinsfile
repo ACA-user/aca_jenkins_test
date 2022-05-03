@@ -17,12 +17,13 @@ node {
 
     }
     stage('Docker run') {
-        sh """ 
+        sh ''' 
               result=`docker ps |grep -w 'jenkinstest'`
+              echo "$result"
               if [ ! -z "$result" ]; then
                 docker rm -f jenkinstest
               fi
-              docker run -tid -p 8081:80 --name jenkinstest jenkinstestt/aca:${env.BUILD_NUMBER}
-        """
+              docker run -tid -p 8081:80 --name jenkinstest jenkinstestt/aca:"$env.BUILD_NUMBER"
+        '''
     }
 }
