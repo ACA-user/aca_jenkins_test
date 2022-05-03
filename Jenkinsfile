@@ -22,7 +22,7 @@ node {
 
               result=`docker ps |grep -wc 'jenkinstest'`
               echo ${result}
-              if [[ ${result} -gt 0 ]]; then
+              if [ ${result} -gt 0 ]; then
                 echo "poghos"
                 docker rm -f jenkinstest
               fi
