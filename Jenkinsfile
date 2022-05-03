@@ -20,7 +20,7 @@ node {
         sh '''
               #!/bin/bash
 
-              result=`docker ps |grep -wc 'jenkinstest'`
+              result=`docker ps |grep -wc 'jenkinstest' || true`
               echo ${result}
               if [ ${result} -gt 0 ]; then
                 echo "poghos"
