@@ -19,12 +19,15 @@ node {
     stage('Docker run') {
         sh '''
               #!/bin/bash
+
               result=`docker ps |grep -wc 'jenkinstest'`
               echo ${result}
-              if (( ${result}>0 )); then
+              if [[ ${result} -gt 0 ]]; then
+                echo "poghos"
                 docker rm -f jenkinstest
               fi
-              docker run -tid -p 8081:80 --name jenkinstest jenkinstestt/aca:${env.BUILD_NUMBER}
+              echo "test"
+              docker run -tid -p 8081:80 --name jenkinstest jenkinstestt/aca:6
         '''
     }
 }
