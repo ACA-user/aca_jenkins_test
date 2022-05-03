@@ -16,7 +16,8 @@ node {
         }
     }
     stage('Docker run') {
-        docker.image("jenkinstestt/aca:${env.BUILD_NUMBER}")
+        // docker.image("jenkinstestt/aca:${env.BUILD_NUMBER}")
+        sh("docker run -tid -p 8081:80 jenkinstestt/aca:${env.BUILD_NUMBER}")
     }
 
 }
