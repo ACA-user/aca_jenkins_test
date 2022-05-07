@@ -16,11 +16,18 @@ node {
         }
 
     }
-    stage('Kubectl apply') {
+    stage('Docker run') {
         sh '''
               #!/bin/bash
-              kubectl apply -f deployment.yml
-            
-              '''
+
+              result=`docker ps |grep -wc 'jenkinstest' || true`
+              echo ${result}
+              if [ ${result} -gt 0 ]; then
+                echo "poghos"
+                docker rm -f jenkinstest
+              fi
+              echo "test"
+              docker run -tid -p 8081:80 --name jenkinstest jenkinstestt/aca:6
+        '''
     }
 }
